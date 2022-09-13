@@ -34,15 +34,27 @@ def update_downloaded_books(books_downloaded):
         except Exception as e:
             logs = open(os.environ.get('path_logs'), 'a')
             logs.write(f'[Error] Al actualizar la base de datos downloaded, {e}.\n')
+            
+            
+def run_command(magnet_links):
+    magnets_added = []
+    
+    for magnet in magnet_links:
+        try:
+            subprocess.run(["transmission-remote", "-a", magnet])
+            magnets_added.append(magnet)
+            time.sleep(1)
+        except Exception as e:
+            logs = open(os.environ.get('path_logs'), 'a')
+            logs.write(f'[Error] No se pudo descargar el archivo, {e}.\n')
+    
+    return magnets_added
+
 
 load_dotenv()
 magnet_links = get_magnet_links()
+magnets_added = run_command(magnet_links)
+update_downloaded_books(magnets_added)
 
-for magnet in magnet_links:
-    try:
-        subprocess.run(["transmission-remote", "-a", magnet])
-        time.sleep(1)
-    except Exception as e:
-        logs = open(os.environ.get('path_logs'), 'a')
-        logs.write(f'[Error] No se pudo descargar el archivo, {e}.\n')
+
         
