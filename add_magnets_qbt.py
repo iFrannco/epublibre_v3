@@ -39,14 +39,15 @@ def update_downloaded_books(books_downloaded):
 def run_command(magnet_links):
     magnets_added = []
     
-    for magnet in magnet_links:
-        try:
-            subprocess.run(["transmission-remote", "-a", magnet])
-            magnets_added.append(magnet)
-            time.sleep(1)
-        except Exception as e:
-            logs = open(os.environ.get('path_logs'), 'a')
-            logs.write(f'[Error] No se pudo descargar el archivo, {e}.\n')
+    if magnet_links != []:
+        for magnet in magnet_links:
+            try:
+                subprocess.run(["transmission-remote", "-a", magnet])
+                magnets_added.append(magnet)
+                time.sleep(1)
+            except Exception as e:
+                logs = open(os.environ.get('path_logs'), 'a')
+                logs.write(f'[Error] No se pudo descargar el archivo, {e}.\n')
     
     return magnets_added
 
