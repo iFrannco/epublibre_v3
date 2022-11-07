@@ -1,5 +1,4 @@
 # Este bot recorre un directorio buscando archivos epub y los envia a tg
-# al terminar, subirlo al servidor y probarlo, instalando las cosas necesarias
 
 import telegram
 import os
