@@ -99,22 +99,27 @@ def send_to_tg(new_books):
     books_sent = []
     
     for book in new_books:
+        mensaje = (       
+            f"📘 | {book['title']}\n\n"
+            f"👤 | {book['author']}\n"
+            f"📆 | {book['date']}\n"
+            f"📄 | {book['pages']}\n"
+            f"📁 | {' '.join(book['genres'])}\n\n"
+            f"{book['telegraph_link']}")
+
         try:
-            mensaje = (       
-                f"📘 | {book['title']}\n\n"
-                f"👤 | {book['author']}\n"
-                f"📆 | {book['date']}\n"
-                f"📄 | {book['pages']}\n"
-                f"📁 | {' '.join(book['genres'])}\n\n"
-                f"{book['telegraph_link']}")
-            
             bot.send_photo(chat_id=os.environ.get('chat_id'), photo=book['cover'], caption=mensaje)
             books_sent.append({'book_link':book['book_link'], 'magnet_link':book['magnet_link']})
-            time.sleep(5)
-            
-        except Exception as e:
-            logs = open(os.environ.get('path_books'), 'a')
-            logs.write(f'[Error] No se pudo enviar el libro {e}.\n')
+        except:
+            try:
+                bot.send_photo(chat_id=os.environ.get('chat_id'), photo='https://i.imgur.com/tM7n9i3.png', caption=mensaje)
+                books_sent.append({'book_link':book['book_link'], 'magnet_link':book['magnet_link']})
+
+            except Exception as e:
+                logs = open(os.environ.get('path_books'), 'a')
+                logs.write(f'[Error] No se pudo enviar el libro {e}.\n')
+        
+        time.sleep(5)
 
 
     return books_sent
