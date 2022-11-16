@@ -6,6 +6,7 @@ import subprocess
 import time
 import os
 from dotenv import load_dotenv
+from transmission_rpc import Client
 
 def get_magnet_links():
     "retorna una lista: magnet links de los libros que no fueron descargados"
@@ -51,10 +52,25 @@ def run_command(magnet_links):
     
     return magnets_added
 
+def add_to_transmission(magnet_links):
+    c = Client()
+    magnets_added = []
 
+    for link in magnet_links:
+        try:
+            c.add_torrent(link)
+            magnets_added.append(link)
+        except Exception as e:
+            logs = open(os.environ.get('path_logs'), 'a')
+            logs.write(f'[Error] No se pudo descargar el archivo, {e}.\n')
+    
+    return magnets_added
+        
+
+        
 load_dotenv()
 magnet_links = get_magnet_links()
-magnets_added = run_command(magnet_links)
+magnets_added = add_to_transmission(magnet_links)
 update_downloaded_books(magnets_added)
 
 
