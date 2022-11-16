@@ -116,7 +116,7 @@ def send_to_tg(new_books):
                 books_sent.append({'book_link':book['book_link'], 'magnet_link':book['magnet_link']})
 
             except Exception as e:
-                logs = open(os.environ.get('path_books'), 'a')
+                logs = open(os.environ.get('path_logs'), 'a')
                 logs.write(f'[Error] No se pudo enviar el libro {e}.\n')
         
         time.sleep(5)
