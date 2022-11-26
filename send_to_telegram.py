@@ -108,11 +108,11 @@ def send_to_tg(new_books):
             f"{book['telegraph_link']}")
 
         try:
-            bot.send_photo(chat_id=os.environ.get('chat_id'), photo=book['cover'], caption=mensaje)
+            bot.send_photo(chat_id=os.environ.get('chat_id_img'), photo=book['cover'], caption=mensaje)
             books_sent.append({'book_link':book['book_link'], 'magnet_link':book['magnet_link']})
         except:
             try:
-                bot.send_photo(chat_id=os.environ.get('chat_id'), photo='https://i.imgur.com/tM7n9i3.png', caption=mensaje)
+                bot.send_photo(chat_id=os.environ.get('chat_id_img'), photo='https://i.imgur.com/tM7n9i3.png', caption=mensaje)
                 books_sent.append({'book_link':book['book_link'], 'magnet_link':book['magnet_link']})
 
             except Exception as e:

@@ -13,7 +13,7 @@ for book in os.listdir(books_path):
     if book.endswith('.epub'):
         try:
             file_path = os.path.join(books_path, book)
-            bot.send_document(chat_id=os.environ.get('chat_id'),
+            bot.send_document(chat_id=os.environ.get('chat_id_files'),
                             document=open(file_path, 'rb'),
                             caption=f'`{book}`', parse_mode='MarkdownV2')
             os.unlink(file_path)
