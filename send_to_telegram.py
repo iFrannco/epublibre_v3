@@ -79,7 +79,7 @@ def get_books_info(new_books):
                 'pages':soup.find('span', class_='well_blue btn-small negrita celda-info').text.strip(),
                 'date':soup.find_all('span', class_='well_blue btn-small negrita')[1].text.strip(),
                 'magnet_link':soup.find('a', id='en_desc').get('href'),
-                'cover':soup.find('img', id='portada')['src']+"&random=234",
+                'cover':soup.find('img', id='portada')['src'],
                 'genres':genres_list,
                 'telegraph_link':telegraph_link['url'],
                 'book_link':link})

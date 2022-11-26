@@ -43,7 +43,7 @@ def run_command(magnet_links):
     if magnet_links != []:
         for magnet in magnet_links:
             try:
-                subprocess.run(["transmission-remote", "-a", magnet])
+                subprocess.run(["deluge-console", "add", magnet])
                 magnets_added.append(magnet)
                 time.sleep(1)
             except Exception as e:
@@ -63,14 +63,14 @@ def add_to_transmission(magnet_links):
         except Exception as e:
             logs = open(os.environ.get('path_logs'), 'a')
             logs.write(f'[Error] No se pudo descargar el archivo, {e}.\n')
-    
+
     return magnets_added
         
 
         
 load_dotenv()
 magnet_links = get_magnet_links()
-magnets_added = add_to_transmission(magnet_links)
+magnets_added = run_command(magnet_links)
 update_downloaded_books(magnets_added)
 
 
