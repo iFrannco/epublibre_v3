@@ -33,7 +33,7 @@ def get_books_website():
     "Return a list with the links of the books in the website"
     
     books_links = []
-    num_pages = 1
+    num_pages = 2
     
     try:
         for page in range(num_pages):
